@@ -1,0 +1,5 @@
+{
+  "quotes": true,
+  "proseWrap": "always",
+  "htmlWhitespaceSensitivity": "ignore"
+}

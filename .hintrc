@@ -1,0 +1,21 @@
+{
+  "extends": ["web-recommended"],
+  "ignoredUrls": [
+  {
+    "domain": "cdn\\.jsdelivr\\.net/.*",
+    "hints": ["*"]
+  },
+  {
+    "domain": "fonts\\.googleapis\\.com/.*",
+    "hints": ["*"]
+  },
+  {
+    "domain": "fonts\\.gstatic\\.com/.*",
+    "hints": ["*"]
+  }
+],
+  "hints": {
+    "html-checker": "error",
+    "meta-viewport": "error"
+  }
+}
