@@ -59,7 +59,7 @@ La recherche de gîtes est possible via différents critères :
 ## 🔧 Prérequis Techniques
 
 - **Langage de développement** : HTML, CSS, PHP
-- **Framework ou librairie** : LARAVEL
+- **Framework ou librairie** : BOOTSTRAP, LARAVEL
 - **Base de données** : MySQL
 
 ---
