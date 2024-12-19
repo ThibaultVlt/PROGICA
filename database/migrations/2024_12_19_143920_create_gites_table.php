@@ -22,7 +22,7 @@ return new class extends Migration
             $table->boolean('dishwasher'); //lave vaisselle O/N
             $table->boolean('washing_machine'); //lave linge O/N
             $table->boolean('air_conditioning'); //climatisation O/N
-            $table->boolean('TV'); //télévision O/N
+            $table->boolean('tv'); //télévision O/N
             $table->boolean('terrace'); //télévision O/N
             $table->boolean('barbecue'); //barbecue O/N
             $table->boolean('private_pool'); //piscine privée O/N
