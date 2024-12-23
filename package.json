@@ -14,6 +14,7 @@
         "@cspell/dict-lorem-ipsum": "^4.0.3",
         "@github/browserslist-config": "^1.0.0",
         "@prantlf/jsonlint": "^16.0.0",
+        "axios": "^1.7.9",
         "browserslist": "^4.24.3",
         "cspell": "^8.17.1",
         "eslint": "^9.17.0",
@@ -24,6 +25,7 @@
         "html-w3c-validator": "^1.7.0",
         "htmlhint": "^1.1.4",
         "jsdoc": "^4.0.4",
+        "laravel-vite-plugin": "^1.1.1",
         "markdownlint-cli": "^0.43.0",
         "mkdirp": "^3.0.1",
         "open-cli": "^8.0.0",
@@ -33,8 +35,6 @@
         "stylelint": "^16.12.0",
         "stylelint-config-standard": "^36.0.1",
         "update-browserslist-db": "^1.1.1",
-        "axios": "^1.7.9",
-        "laravel-vite-plugin": "^1.1.1",
         "vite": "^6.0.4"
     },
     "scripts": {

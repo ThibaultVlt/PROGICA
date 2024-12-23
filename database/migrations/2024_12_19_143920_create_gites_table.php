@@ -32,7 +32,8 @@ return new class extends Migration
             $table->boolean('end_cleaning'); //ménage fin de séjour O/N
             $table->boolean('linen_rental'); //location de linge O/N
             $table->boolean('internet'); //accès internet O/N
-            $table->integer('price');
+            $table->integer('price'); // prix
+            $table->foreignId('ville_id')->constrained('villes')->onDelete('cascade'); // Relation avec la ville
             $table->timestamps();
         });
     }
