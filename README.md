@@ -124,3 +124,6 @@ Les contributions au projet sont les bienvenues ! Veuillez suivre les étapes su
 ## 💡 Remarques
 
 Ce projet est réalisé durant ma formation de Développeur web et web mobile.
+
+TODO Trouver pour mettre les photos
+TODO Faire le filtre de recherche pour la liste et les cards

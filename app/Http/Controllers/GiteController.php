@@ -15,7 +15,7 @@ class GiteController extends Controller
      */
     public function index()
     {
-        $gites = Gite::paginate(10); // Récupération de tous les gîtes avec pagination par lot de 10 gîtes
+        $gites = Gite::all(); // Récupération de tous les gîtes avec pagination par lot de 10 gîtes
         return view('gites.liste_gites', compact('gites'));
     }
 

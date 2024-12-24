@@ -12,9 +12,9 @@
 
     <!-- Tableau des gîtes -->
     <div class="table-responsive">
-        <table class="table table-bordered table-striped">
+        <table class="table table-bordered border border-black">
         <thead class="table-dark">
-          <tr>
+            <tr class="text-center">
             <th>Fiche</th>
             <th>Nom</th>
             <th>Ville</th>
@@ -29,7 +29,7 @@
         </thead>
         <tbody>
             @foreach ($gites as $gite)
-                <tr>
+                <tr class="text-center align-middle">
                     <td><a href="{{ route('gites.show', $gite->id) }}" class="btn btn-primary btn-sm">Voir la fiche</a></td>
                     <td>{{ $gite->title }}</td>
                     <td>{{ $gite->ville->name }}</td>
@@ -38,7 +38,7 @@
                     <td>{{ $gite->bed }}</td>
                     <td>{{ $gite->pets ? 'Oui' : 'Non' }}</td>
                     <td>
-                        <ul>
+                        <ul class="list-unstyled ">
                             @if ($gite->dishwasher) <li>Lave-vaisselle</li> @endif
                             @if ($gite->washing_machine) <li>Lave-linge</li> @endif
                             @if ($gite->air_conditioning) <li>Climatisation</li> @endif
@@ -56,7 +56,7 @@
                     </td>
                     <td>{{ $gite->price }}</td>
                     <td>
-                        <a href="/gites/{{ $gite->id }}/edit" class="btn btn-warning btn-sm">Modifier</a>
+                        <a href="/gites/{{ $gite->id }}/edit" class="btn btn-warning btn-sm mb-3">Modifier</a>
                         <form action="/gites/{{ $gite->id }}" method="POST" class="d-inline">
                             @csrf
                             @method('DELETE')
