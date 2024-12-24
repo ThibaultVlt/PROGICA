@@ -30,7 +30,7 @@
         <tbody>
             @foreach ($gites as $gite)
                 <tr>
-                    <td><a href="/gites/{{ $gite->id }}" class="btn btn-primary btn-sm">Voir la fiche</a></td>
+                    <td><a href="{{ route('gites.show', $gite->id) }}" class="btn btn-primary btn-sm">Voir la fiche</a></td>
                     <td>{{ $gite->title }}</td>
                     <td>{{ $gite->ville->name }}</td>
                     <td>{{ $gite->surface }}</td>

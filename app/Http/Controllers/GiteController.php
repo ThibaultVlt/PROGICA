@@ -171,4 +171,14 @@ class GiteController extends Controller
 
         return redirect()->route('gites.index')->with('success', 'Vous avez supprimé le gîte');
     }
+
+    /**
+     * Voir le gîte (utile pour la fiche du gîte)
+     */
+    public function show($id)
+    {
+      $gite = Gite::with('ville')->findOrFail($id);
+
+      return view('gites.fiche_gite', compact('gite'));
+    }
 }

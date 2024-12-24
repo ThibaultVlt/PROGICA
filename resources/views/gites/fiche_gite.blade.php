@@ -3,17 +3,70 @@
 @section('title', 'Fiche du Gîte')
 
 @section('content')
-    <h1 class="text-center">{{ $gite->title }}</h1>
+    <div class="container">
+        <h1 class="text-center">{{ $gite->title }}</h1>
 
-    <div class="card">
-        <div class="card-body">
-            <p><strong>Description :</strong> {{ $gite->description }}</p>
-            <p><strong>Surface :</strong> {{ $gite->surface }} m²</p>
-            <p><strong>Chambres :</strong> {{ $gite->bedrooms }}</p>
-            <p><strong>Couchages :</strong> {{ $gite->bed }}</p>
-            <p><strong>Animaux acceptés :</strong> {{ $gite->pets ? 'Oui' : 'Non' }}</p>
-            <p><strong>Prix :</strong> {{ $gite->price }} €</p>
-            <!-- Ajoute d'autres détails si nécessaire -->
+        <!-- Affichage de la description du gîte -->
+        <div class="row">
+            <div class="col-md-8">
+                <p><strong>Description:</strong> {{ $gite->description }}</p>
+                <p><strong>Surface:</strong> {{ $gite->surface }} m²</p>
+                <p><strong>Nombre de chambres:</strong> {{ $gite->bedrooms }}</p>
+                <p><strong>Nombre de couchages:</strong> {{ $gite->bed }}</p>
+                <p><strong>Prix par nuit:</strong> {{ $gite->price }} €</p>
+            </div>
+            <div class="col-md-4">
+                <p><strong>Ville:</strong> {{ $gite->ville->name }}</p> <!-- Affichage de la ville -->
+            </div>
+        </div>
+
+        <!-- Liste des équipements -->
+        <h3>Équipements</h3>
+        <ul>
+            @if($gite->dishwasher)
+                <li>Lave-vaisselle</li>
+            @endif
+            @if($gite->washing_machine)
+                <li>Lave-linge</li>
+            @endif
+            @if($gite->air_conditioning)
+                <li>Climatisation</li>
+            @endif
+            @if($gite->tv)
+                <li>TV</li>
+            @endif
+            @if($gite->terrace)
+                <li>Terrasse</li>
+            @endif
+            @if($gite->barbecue)
+                <li>Barbecue</li>
+            @endif
+            @if($gite->private_pool)
+                <li>Piscine privée</li>
+            @endif
+            @if($gite->shared_pool)
+                <li>Piscine partagée</li>
+            @endif
+            @if($gite->tennis)
+                <li>Tennis</li>
+            @endif
+            @if($gite->tennis_table)
+                <li>Ping-pong</li>
+            @endif
+            @if($gite->linen_rental)
+                <li>Location de linge</li>
+            @endif
+            @if($gite->end_cleaning)
+                <li>Ménage fin de séjour</li>
+            @endif
+            @if($gite->internet)
+                <li>Internet</li>
+            @endif
+        </ul>
+
+        <!-- Actions -->
+        <div class="mt-4">
+            <a href="{{ route('gites.index') }}" class="btn btn-primary">Retour à la liste</a>
         </div>
     </div>
 @endsection
