@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Gite;
 use App\Models\Ville;
-use Illuminate\Support\Facades\Storage;
+
 
 class GiteController extends Controller
 {
@@ -16,8 +17,9 @@ class GiteController extends Controller
      */
     public function index()
     {
-        $gites = Gite::all(); //Récupération de tous les gîtes
-        return view('gites.liste_gites', compact('gites'));
+        $gites = Gite::paginate(10); //Récupération de tous les gîtes
+        $villes = Ville::all(); //Récupération des villes de la base de données
+        return view('gites.liste_gites', compact('gites', 'villes'));
     }
 
     /**
@@ -245,4 +247,37 @@ class GiteController extends Controller
 
           return redirect()->route('gites.show', $gite->id)->with('success', 'Photo supprimée avec succès!');
     }
+
+    /**
+     * Recherche
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function search(Request $request)
+{
+    // Commencer avec une requête sur le modèle Gite
+    $query = Gite::query();
+
+    // Filtrer par ville
+    if ($request->has('ville_id') && $request->input('ville_id') != '') {
+        $query->where('ville_id', $request->input('ville_id'));
+    }
+
+    // Liste des équipements
+    $equipments = $request->input('equipments', []); // Récupérer les équipements sélectionnés
+
+    // Appliquer les filtres pour chaque équipement sélectionné
+    foreach ($equipments as $equipment) {
+        $query->where('equipments', 'like', '%'.$equipment.'%');
+    }
+
+    // Récupérer les résultats filtrés
+    $gites = $query->get();
+
+    // Passer les résultats à la vue
+    return view('gites.liste_gites', compact('gites', 'villes'));
+}
+
+
 }
