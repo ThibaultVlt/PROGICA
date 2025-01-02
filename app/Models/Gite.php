@@ -36,6 +36,16 @@ class Gite extends Model
       'internet',
       'price',
       'ville_id',
+      'photos',
+  ];
+
+  /**
+   * Convertir automatiquement le champ 'photos' en un tableau
+   *
+   * @var array
+   */
+  protected $casts = [
+    'photos' => 'array',
   ];
 
   /**

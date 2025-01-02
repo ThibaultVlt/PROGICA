@@ -6,6 +6,24 @@
     <div class="container">
         <h1 class="text-center">{{ $gite->title }}</h1>
 
+        <div id="carouselControls" class="carousel slide carousel-fade" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            @foreach(json_decode($gite->photos) as $key => $photo)
+              <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+                <img src="{{ asset('storage/' . $photo) }}" class="d-block w-100" alt="Illustrations du gîte">
+              </div>
+            @endforeach
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselControls" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselControls" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+
         <!-- Affichage de la description du gîte -->
         <div class="row">
             <div class="col-md-8">

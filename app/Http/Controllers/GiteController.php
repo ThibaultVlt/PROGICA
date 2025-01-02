@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Gite;
 use App\Models\Ville;
+use Illuminate\Support\Facades\Storage;
 
 class GiteController extends Controller
 {
@@ -38,7 +39,6 @@ class GiteController extends Controller
      */
     public function store(Request $request)
     {
-
       //Ajouter des valeurs par défaut pour les checkboxes
     $request->merge([
       'dishwasher' => $request->has('dishwasher'),
@@ -78,10 +78,21 @@ class GiteController extends Controller
         'internet' => 'boolean',
         'price' => 'required|integer',
         'ville_id' => 'required|exists:villes,id',
+        'photos.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
     ]);
 
-          Gite::create($validated);
-          return redirect()->route('gites.index')->with('success', 'Vous venez d\'ajouter un gîte.');
+      //Transmission des photos Pour stockage des chemins en JSON
+      if ($request->hasFile('photos')) {
+        $photos = [];
+          foreach ($request->file('photos') as $photo) {
+              $photoPath = $photo->store('photos', 'public'); // Stockage des photos
+              $photos[] = $photoPath;
+        }
+      }
+      $validated['photos'] = json_encode($photos); //Enregistrement des photos dans la base de données
+
+      Gite::create($validated);
+      return redirect()->route('gites.index')->with('success', 'Vous venez d\'ajouter un gîte.');
     }
 
     /**
@@ -145,10 +156,24 @@ class GiteController extends Controller
             'end_cleaning' => 'nullable|boolean',
             'linen_rental' => 'nullable|boolean',
             'internet' => 'nullable|boolean',
+            'photos.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         //Trouver le gîte par ID ou erreur
         $gite = Gite::findOrFail($id);
+
+        //Récupérer les photos présentent dans la base de données
+        $photos = json_decode($gite->photos, true) ?? [];
+
+        //Transmission des photos Pour stockage des chemins en JSON
+        if ($request->hasFile('photos')) {
+          foreach ($request->file('photos') as $photo) {
+              $photoPath = $photo->store('photos', 'public'); // Stockage des photos
+              $photos[] = $photoPath; // Ajouter le chemin de la photo au tableau
+          }
+      }
+      $validated['photos'] = json_encode($photos); //Mise en JSON des chemins vers les photos
+
 
         //Mise à jour des données
         $gite->update($validated);
@@ -166,6 +191,7 @@ class GiteController extends Controller
      */
     public function destroy($id)
     {
+      dd('destroy appelée', $id);
         $gite = Gite::findOrFail($id);
         $gite->delete();
 
@@ -180,5 +206,43 @@ class GiteController extends Controller
       $gite = Gite::with('ville')->findOrFail($id);
 
       return view('gites.fiche_gite', compact('gite'));
+    }
+
+    /**
+     * Supprimer une photo
+     *
+     * @param Request $request
+     * @param int $giteId
+     * @param int $photoIndex
+     * @return void
+     */
+    public function deletePhoto(Request $request, $giteId, $photoIndex)
+    {
+      dd('deletePhoto appelée', $giteId, $photoIndex);
+      // Récupérer le gîte par son ID
+      $gite = Gite::findOrFail($giteId);
+
+      // Décoder les photos du gîte
+      $photos = json_decode($gite->photos, true);
+
+      if (!isset($photos[$photoIndex])) {
+        return redirect()->route('gites.show', $gite->id)->with('error', 'Photo introuvable.');
+      }
+          // Supprimer la photo du tableau
+          $photoPath = $photos[$photoIndex];
+
+          // Supprimer le fichier de la photo du stockage
+          Storage::disk('public')->delete($photoPath);
+
+          // Retirer la photo du tableau
+          unset($photos[$photoIndex]);
+
+          // Mettre à jour la colonne photos avec le nouveau tableau
+          $gite->photos = json_encode(array_values($photos));
+
+          // Sauvegarder les modifications dans la base de données
+          $gite->save();
+
+          return redirect()->route('gites.show', $gite->id)->with('success', 'Photo supprimée avec succès!');
     }
 }

@@ -39,5 +39,7 @@ Route::get('/gites/{id}/edit', [GiteController::class, 'edit'])->name('gites.edi
 //Mettre à jour les informations d'un gîte
 Route::put('/gites/{id}', [GiteController::class, 'update'])->name('gites.update');
 
+//Supprimer une photo
+Route::delete('gites/{giteId}/photos/{photoIndex}/delete', [GiteController::class, 'deletePhoto'])->where(['giteId' => '[0-9]+', 'photoIndex' => '[0-9]+'])->name('gites.deletePhoto');
 //Supprimer un gîte
-Route::delete('/gites/{id}', [GiteController::class, 'destroy'])->name('gites.destroy');
+Route::delete('/gites/{id}', [GiteController::class, 'destroy'])->where('id', '[0-9]+')->name('gites.destroy');

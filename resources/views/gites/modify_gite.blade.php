@@ -22,7 +22,7 @@
         </div>
     @endif
 
-    <form action="{{ route('gites.update', $gite->id) }}" method="POST">
+    <form action="{{ route('gites.update', $gite->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT') <!-- Indique que c'est une requête PUT pour la mise à jour -->
 
@@ -157,7 +157,29 @@
                 </label>
             </div>
         </fieldset>
+        <!-- Section pour les photos -->
+        <div class="mb-3">
+          <label for="photos" class="form-label">Photos du gîte</label>
+          <input type="file" class="form-control" id="photos" name="photos[]" multiple accept="image/*">
+        </div>
 
+        <!-- Suppression des photos -->
+        @if($gite->photos)
+            <h4>Photos actuelles</h4>
+            @foreach(json_decode($gite->photos, true) as $index => $photo)
+            <div class="photo-item">
+                <img src="{{ asset('storage/' . $photo) }}" class="img-thumbnail" alt="Gite Photo">
+
+                <!-- Formulaire pour supprimer la photo -->
+                <form action="{{ route('gites.deletePhoto', ['giteId' => $gite->id, 'photoIndex' => $index]) }}" method="POST" style="display:inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger btn-sm">Supprimer la photo</button>
+                </form>
+            </div>
+            @endforeach
+        @endif
+        <!-- Bouton validation -->
         <button type="submit" class="btn btn-primary">Mettre à jour le Gîte</button>
     </form>
 @endsection

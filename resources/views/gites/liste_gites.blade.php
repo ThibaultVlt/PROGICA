@@ -57,7 +57,7 @@
                     <td>{{ $gite->price }}</td>
                     <td>
                         <a href="/gites/{{ $gite->id }}/edit" class="btn btn-warning btn-sm mb-3">Modifier</a>
-                        <form action="/gites/{{ $gite->id }}" method="POST" class="d-inline">
+                        <form action="{{ route('gites.destroy', $gite->id) }}" method="POST" class="d-inline">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr ?')">Supprimer</button>

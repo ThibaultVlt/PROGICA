@@ -22,7 +22,7 @@
         </div>
     @endif
 
-    <form action="{{ route('gites.store') }}" method="POST">
+    <form action="{{ route('gites.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <!-- Champs généraux -->
@@ -156,6 +156,11 @@
                 </label>
             </div>
         </fieldset>
+        <!-- Section pour les photos -->
+        <div class="mb-3">
+          <label for="photos" class="form-label">Photos du gîte</label>
+          <input type="file" class="form-control" id="photos" name="photos[]" multiple accept="image/*">
+        </div>
 
         <button type="submit" class="btn btn-primary">Ajouter le Gîte</button>
     </form>
