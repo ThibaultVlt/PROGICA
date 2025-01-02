@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Récupération du titre correspondant à la section dont nous avons besoin -->
     <title>@yield('title', 'PROGICA')</title>
     <!-- Inclure le CSS de Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -34,6 +35,7 @@
 
     <!-- Contenu principal -->
     <div class="container mt-5">
+      <!-- Récupération de la section dont nous avons besoin -->
         @yield('content')
     </div>
 

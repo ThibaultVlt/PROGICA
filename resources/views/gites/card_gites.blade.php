@@ -1,13 +1,17 @@
+<!-- Envoi sur la vue index.blade.php -->
 @extends('index')
 
+<!-- Titre envoyé sur la vue index -->
 @section('title', 'Accueil')
 
+<!-- Section envoyé sur la vue index -->
 @section('content')
     <h1 class="text-center">Bienvenue sur PROGICA</h1>
     <p class="text-center">Découvrez nos gîtes campagnards pour des séjours inoubliables.</p>
 
     <!-- Section des cartes -->
     <div class="row">
+      <!-- Boucle permettant la récupération des données dans la base de données -->
         @foreach ($gites as $gite)
             <div class="col-md-4 mb-4">
                 <div class="card h-100">

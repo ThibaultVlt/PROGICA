@@ -9,29 +9,29 @@ use App\Models\Ville;
 class GiteController extends Controller
 {
     /**
-     * Récupération des gites et mise en liste de 10 avec pagination
+     *Récupération des gites et mise en liste de 10 avec pagination
      *
      * @return void
      */
     public function index()
     {
-        $gites = Gite::all(); // Récupération de tous les gîtes avec pagination par lot de 10 gîtes
+        $gites = Gite::all(); //Récupération de tous les gîtes
         return view('gites.liste_gites', compact('gites'));
     }
 
     /**
-     * Création d'une fiche de gîte
+     *Création d'une fiche de gîte
      *
      * @return void
      */
     public function create()
     {
-      $villes = Ville::all(); // Récupération de toutes les villes
+      $villes = Ville::all(); //Récupération de toutes les villes
       return view('gites.create_gite', compact('villes'));
     }
 
     /**
-     * Enregistrer un nouveau gîte
+     *Enregistrer un nouveau gîte
      *
      * @param Request $request
      * @return void
@@ -39,7 +39,7 @@ class GiteController extends Controller
     public function store(Request $request)
     {
 
-      // Ajouter des valeurs par défaut pour les checkboxes
+      //Ajouter des valeurs par défaut pour les checkboxes
     $request->merge([
       'dishwasher' => $request->has('dishwasher'),
       'washing_machine' => $request->has('washing_machine'),
@@ -85,7 +85,7 @@ class GiteController extends Controller
     }
 
     /**
-     * Afficher le formulaire pour modifier un gîte
+     *Afficher le formulaire pour modifier un gîte
      *
      * @param int $id
      * @return void
@@ -98,7 +98,7 @@ class GiteController extends Controller
     }
 
     /**
-     * Mettre à jour les informations d'un gîte
+     *Mettre à jour les informations d'un gîte
      *
      * @param Request $request
      * @param int $id
@@ -106,7 +106,7 @@ class GiteController extends Controller
      */
     public function update(Request $request, $id)
     {
-       // Ajouter des valeurs par défaut pour les checkboxes
+       //Ajouter des valeurs par défaut pour les checkboxes
         $request->merge([
           'dishwasher' => $request->has('dishwasher'),
           'washing_machine' => $request->has('washing_machine'),
@@ -159,7 +159,7 @@ class GiteController extends Controller
 
 
     /**
-     * Supprimer un gîte
+     *Supprimer un gîte
      *
      * @param int $id
      * @return void
@@ -173,7 +173,7 @@ class GiteController extends Controller
     }
 
     /**
-     * Voir le gîte (utile pour la fiche du gîte)
+     *Voir le gîte (utile pour la fiche du gîte)
      */
     public function show($id)
     {
