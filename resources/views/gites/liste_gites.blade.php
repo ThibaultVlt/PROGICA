@@ -4,14 +4,11 @@
 
 @section('content')
     <h1 class="text-center">Liste des Gîtes</h1>
-
-
-    <div class="d-flex justify-content-around mb-3">
       <!-- FORMULAIRE DE RECHERCHE -->
-      <form method="GET" action="{{ route('gites.search') }}" class="mb-4">
-    <div class="row">
+    <form method="GET" action="{{ route('gites.search') }}">
+      <div class="d-flex justify-content-center gap-3 mb-2">
         <!-- Sélecteur de ville -->
-        <div class="col-md-4">
+        <div>
             <select name="ville_id" class="form-control">
                 <option value="">Ville</option>
                 @foreach ($villes as $ville)
@@ -19,15 +16,9 @@
                 @endforeach
             </select>
         </div>
-
-        <!-- Bouton de recherche -->
-        <div class="col-md-2">
-            <button type="submit" class="btn btn-primary">Rechercher</button>
-        </div>
-
         <!-- Section des équipements dans un menu déroulant avec sélection multiple -->
-        <div class="row">
-          <div class="col-md-6">
+        <div>
+          <div>
             <label for="equipments">Équipements</label>
             <select name="equipments[]" id="equipments" class="form-control" multiple>
               @foreach (['dishwasher', 'washing_machine', 'air_conditioning', 'tv', 'terrace', 'barbecue', 'private_pool', 'shared_pool', 'tennis', 'tennis_table', 'end_cleaning', 'linen_rental', 'internet'] as $equipment)
@@ -38,11 +29,14 @@
             </select>
           </div>
         </div>
+        <div>
+          <!-- Bouton de recherche -->
+            <button type="submit" class="btn btn-primary">Rechercher</button>
+            <!-- Bouton "Ajouter un gîte" -->
+            <a href="/gites/create" class="btn btn-success">Ajouter un gîte</a>
+        </div>
       </div>
     </form>
-  </div>
-  <!-- Bouton "Ajouter un gîte" -->
-  <a href="/gites/create" class="btn btn-success">Ajouter un gîte</a>
 
     <!-- Tableau des gîtes -->
     <div class="table-responsive">
@@ -105,6 +99,5 @@
         <div class="d-flex justify-content-center mt-4">
           {{ $gites->links() }}
         </div>
-
     </div>
 @endsection
