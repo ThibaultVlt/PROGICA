@@ -17,18 +17,26 @@
             </select>
         </div>
         <!-- Section des équipements dans un menu déroulant avec sélection multiple -->
-        <div>
-          <div>
-            <label for="equipments">Équipements</label>
-            <select name="equipments[]" id="equipments" class="form-control" multiple>
-              @foreach (['dishwasher', 'washing_machine', 'air_conditioning', 'tv', 'terrace', 'barbecue', 'private_pool', 'shared_pool', 'tennis', 'tennis_table', 'end_cleaning', 'linen_rental', 'internet'] as $equipment)
-              <option value="{{ $equipment }}" {{ in_array($equipment, request()->input('equipments', [])) ? 'selected' : '' }}>
-                {{ ucfirst(str_replace('_', ' ', $equipment)) }}
-              </option>
-              @endforeach
-            </select>
-          </div>
+        <div class="mt-3">
+        <label>Équipements</label>
+        <div class="form-check">
+            @foreach (['pets', 'dishwasher', 'washing_machine', 'air_conditioning', 'tv', 'terrace', 'barbecue', 'private_pool', 'shared_pool', 'tennis', 'tennis_table', 'end_cleaning', 'linen_rental', 'internet'] as $equipment)
+                <div>
+                    <input
+                        type="checkbox"
+                        name="equipments[]"
+                        value="{{ $equipment }}"
+                        id="{{ $equipment }}"
+                        class="form-check-input"
+                        {{ in_array($equipment, request()->input('equipments', [])) ? 'checked' : '' }}
+                    >
+                    <label for="{{ $equipment }}" class="form-check-label">
+                        {{ ucfirst(str_replace('_', ' ', $equipment)) }}
+                    </label>
+                </div>
+            @endforeach
         </div>
+    </div>
         <div>
           <!-- Bouton de recherche -->
             <button type="submit" class="btn btn-primary">Rechercher</button>

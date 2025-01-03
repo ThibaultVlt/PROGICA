@@ -260,24 +260,28 @@ class GiteController extends Controller
     $query = Gite::query();
 
     // Filtrer par ville
-    if ($request->has('ville_id') && $request->input('ville_id') != '') {
-        $query->where('ville_id', $request->input('ville_id'));
-    }
+    if ($request->filled('ville_id')) {
+      $query->where('ville_id', $request->input('ville_id'));
+  }
 
-    // Liste des équipements
-    $equipments = $request->input('equipments', []); // Récupérer les équipements sélectionnés
+       // Récupérer les équipements sélectionnés dans la requête
+    $equipments = $request->input('equipments', []); // Par défaut, un tableau vide
 
-    // Appliquer les filtres pour chaque équipement sélectionné
+    // Ajouter des filtres pour chaque équipement sélectionné
     foreach ($equipments as $equipment) {
-        $query->where('equipments', 'like', '%'.$equipment.'%');
+        if (Schema::hasColumn('gites', $equipment)) {
+            $query->where($equipment, true); // Vérifier si la colonne équipement est `true`
+        }
     }
+
+    // Récupérer les villes pour les afficher dans le formulaire
+    $villes = Ville::all();
 
     // Récupérer les résultats filtrés
-    $gites = $query->get();
+    $gites = $query->paginate(10); // Pagination des résultats
 
-    // Passer les résultats à la vue
+    // Retourner les résultats dans la vue
     return view('gites.liste_gites', compact('gites', 'villes'));
 }
-
 
 }
