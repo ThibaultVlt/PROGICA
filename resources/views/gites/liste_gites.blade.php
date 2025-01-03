@@ -5,7 +5,7 @@
 @section('content')
     <h1 class="text-center">Liste des Gîtes</h1>
       <!-- FORMULAIRE DE RECHERCHE -->
-    <form method="GET" action="{{ route('gites.search') }}">
+    <form method="GET" action="{{ route('gites.index') }}">
       <div class="d-flex justify-content-center gap-3 mb-2">
         <!-- Sélecteur de ville -->
         <div>
@@ -18,8 +18,8 @@
         </div>
         <!-- Section des équipements dans un menu déroulant avec sélection multiple -->
         <div class="mt-3">
-        <label>Équipements</label>
-        <div class="form-check">
+          <div class="form-check">
+          <label>Équipements</label>
             @foreach (['pets', 'dishwasher', 'washing_machine', 'air_conditioning', 'tv', 'terrace', 'barbecue', 'private_pool', 'shared_pool', 'tennis', 'tennis_table', 'end_cleaning', 'linen_rental', 'internet'] as $equipment)
                 <div>
                     <input

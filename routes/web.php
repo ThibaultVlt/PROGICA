@@ -21,7 +21,7 @@ Route::get('/', function () {
 
 
 
-//Afficher la liste des gîtes
+//Afficher la liste des gîtes et recherche de gîtes
 Route::get('/gites', [GiteController::class, 'index'])->name('gites.index');
 
 //Afficher le formulaire pour ajouter un gîte
@@ -44,6 +44,3 @@ Route::delete('gites/{giteId}/photos/{photoIndex}/delete', [GiteController::clas
 
 //Supprimer un gîte
 Route::delete('/gites/{id}', [GiteController::class, 'destroy'])->where('id', '[0-9]+')->name('gites.destroy');
-
-// Recherche de gîtes
-Route::get('/gites/search', [GiteController::class, 'search'])->name('gites.search');

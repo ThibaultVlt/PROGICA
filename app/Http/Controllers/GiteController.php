@@ -15,10 +15,33 @@ class GiteController extends Controller
      *
      * @return void
      */
-    public function index()
+    public function index(Request $request)
     {
-        $gites = Gite::paginate(10); //Récupération de tous les gîtes
-        $villes = Ville::all(); //Récupération des villes de la base de données
+        // Initialiser la requête pour récupérer les gîtes
+        $query = Gite::query();
+
+        // Filtrer par ville si un filtre est passé
+        if ($request->has('ville_id') && $request->ville_id) {
+            $query->where('ville_id', $request->ville_id);
+        }
+
+        // Filtrer par équipements si des équipements sont sélectionnés
+        if ($request->has('equipments') && is_array($request->equipments)) {
+            foreach ($request->equipments as $equipment) {
+                // Vérifier si la colonne existe dans la table 'gites' et appliquer le filtre
+                if (\Schema::hasColumn('gites', $equipment)) {
+                    $query->where($equipment, true);
+                }
+            }
+        }
+
+        // Récupérer les gîtes filtrés
+        $gites = $query->paginate(10);
+
+        // Récupérer toutes les villes pour le filtre
+        $villes = Ville::all();
+
+        // Retourner la vue avec les gîtes et les villes disponibles
         return view('gites.liste_gites', compact('gites', 'villes'));
     }
 
@@ -247,41 +270,4 @@ class GiteController extends Controller
 
           return redirect()->route('gites.show', $gite->id)->with('success', 'Photo supprimée avec succès!');
     }
-
-    /**
-     * Recherche
-     *
-     * @param Request $request
-     * @return void
-     */
-    public function search(Request $request)
-{
-    // Commencer avec une requête sur le modèle Gite
-    $query = Gite::query();
-
-    // Filtrer par ville
-    if ($request->filled('ville_id')) {
-      $query->where('ville_id', $request->input('ville_id'));
-  }
-
-       // Récupérer les équipements sélectionnés dans la requête
-    $equipments = $request->input('equipments', []); // Par défaut, un tableau vide
-
-    // Ajouter des filtres pour chaque équipement sélectionné
-    foreach ($equipments as $equipment) {
-        if (Schema::hasColumn('gites', $equipment)) {
-            $query->where($equipment, true); // Vérifier si la colonne équipement est `true`
-        }
-    }
-
-    // Récupérer les villes pour les afficher dans le formulaire
-    $villes = Ville::all();
-
-    // Récupérer les résultats filtrés
-    $gites = $query->paginate(10); // Pagination des résultats
-
-    // Retourner les résultats dans la vue
-    return view('gites.liste_gites', compact('gites', 'villes'));
-}
-
 }
