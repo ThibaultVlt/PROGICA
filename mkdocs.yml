@@ -1,0 +1,14 @@
+site_name: Documentation du Projet Progica
+nav:
+  - Accueil: index.md
+  - Documentation technique:
+      - Architecture: tech/architecture.md
+      - Choix techniques: tech/choix_techniques.md
+      - Configuration du serveur: tech/configuration_serveur.md
+  - Documentation fonctionnelle:
+      - Présentation générale: functional/presentation.md
+      - Cas d'utilisation: functional/cas_utilisation.md
+  - Documentation utilisateur:
+      - Guide d'installation: user/installation.md
+      - Prise en main: user/prise_en_main.md
+theme: readthedocs
